@@ -7,10 +7,16 @@ interface IFormProps {
     dropdownPlaceholder: string
 }
 
+type FormFields = {
+    amount: string;
+    currency: string;
+    receiversAddress?: string;
+}
+
 const Form: React.FC<IFormProps> = ({inputPlaceholder, dropdownPlaceholder}) => {
 
     const [currency, setCurrency] = useState<string>('');
-    const [formFields, setFormFields] = useState({
+    const [formFields, setFormFields] = useState<FormFields>({
         amount: '',
         currency: '',
         receiversAddress: ''
@@ -27,18 +33,33 @@ const Form: React.FC<IFormProps> = ({inputPlaceholder, dropdownPlaceholder}) => 
     }
 
     const handleCallback = (childData: string) => {
-        // console.log(currency);
-        // console.log(childData);
         setCurrency(childData);
+        console.log(currency);
+        console.log(childData);
     };
 
     return (
         <form onSubmit={handleSubmit}>
             <div className="test">
-                <input name='amount' placeholder={inputPlaceholder} value={formFields.amount} onChange={inputsHandler}/>
-                <Dropdown callback={handleCallback} title={dropdownPlaceholder}/>
+                <div>
+                    <input name='amount'
+                           placeholder={inputPlaceholder}
+                           value={formFields.amount}
+                           onChange={inputsHandler}/>
+                </div>
+                <div>
+                    <Dropdown callback={handleCallback} title={dropdownPlaceholder}/>
+                </div>
             </div>
-            {formFields.currency === 'ERC20' ? <input type="text" placeholder="Receivers Address"/> : null}
+            {formFields.currency === 'ERC20' ?
+                <input type="text"
+                       name="receiversAddress"
+                       placeholder="Receivers Address"
+                       value={formFields.receiversAddress}
+                       onChange={inputsHandler}/>
+                :
+                null
+            }
             <button className="submit">Submit</button>
         </form>
     )

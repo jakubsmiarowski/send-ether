@@ -10,7 +10,7 @@
     justify-content: space-between;
     cursor: pointer;
     width: 100%;
-    padding: 5px 20px;
+    padding: 1em 2em;
 
     &__title--bold {
       font-weight: bold;
@@ -21,10 +21,11 @@
   .dd-list {
     box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
     padding: 0;
-    margin: 0;
     width: 100%;
-    margin-top: 20px;
-
+    margin: 5px 0 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
     &-item {
 
     }
