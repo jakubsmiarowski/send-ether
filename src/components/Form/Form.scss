@@ -1,0 +1,11 @@
+@import "src/App";
+
+.test {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+input {
+  @include styling;
+  padding: 0 2em;
+}

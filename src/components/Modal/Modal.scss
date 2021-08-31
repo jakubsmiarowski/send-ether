@@ -1,0 +1,68 @@
+.modalContainer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba($color: #000000, $alpha: 0.35);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modal {
+    width: 30vw;
+    height: auto;
+    padding: 0 2rem 2rem 2rem;
+    background-color: white;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+
+    &_header {
+      position: relative;
+      &-title {
+        text-align: left;
+      }
+
+      .close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: transparent;
+        cursor: pointer;
+        font-size: 13px;
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    &_content {
+      padding: 2rem 0;
+    }
+
+    &_footer {
+      padding: 2rem 0 0;
+      button {
+        float: right;
+        padding: 0.5rem;
+      }
+      .modal-close {
+        background-color: transparent;
+        font-weight: 600;
+        border: 1px solid #8C8C8C;
+        &:hover {
+          color: rgba(54, 67, 72, 0.8);
+        }
+      }
+      .submit {
+        margin-right: 1rem;
+        background-color: rgba(54, 67, 72, 0.8);
+        color: #fff;
+        border: none;
+        &:hover {
+          background-color: #8C8C8C;
+        }
+      }
+    }
+  }
+}
