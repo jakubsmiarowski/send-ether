@@ -3,6 +3,8 @@
 .dd-wrapper {
   display: flex;
   flex-wrap: wrap;
+  max-width: 150px;
+  position: relative;
 
   .dd-header {
     @include styling();
@@ -10,7 +12,7 @@
     justify-content: space-between;
     cursor: pointer;
     width: 100%;
-    padding: 1em 2em;
+    padding: 10px 2em;
 
     &__title--bold {
       font-weight: bold;
@@ -23,9 +25,11 @@
     padding: 0;
     width: 100%;
     margin: 5px 0 0;
-    position: relative;
     display: flex;
     flex-direction: column;
+    position: absolute;
+    inset: 0px auto auto 0px;
+    transform: translate(0px, 40px);
     &-item {
 
     }

@@ -1,0 +1,26 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+.button {
+  padding: 1em 2em;
+  background-color: transparent;
+  border: 1px solid #8C8C8C;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: #8C8C8C;
+    color: white;
+  }
+  &_logo {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+    filter: invert(18%) sepia(35%) saturate(274%) hue-rotate(175deg) brightness(96%) contrast(93%)
+  }
+}

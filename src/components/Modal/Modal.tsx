@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import './Modal.scss';
+import Ethereum from '../../assets/img/ethereum-brands.svg'
+
 
 interface IModalProps {
     show: boolean;
@@ -11,6 +13,13 @@ interface IModalProps {
 const modalRoot = document.getElementById("modal") as HTMLElement;
 
 const Modal: React.FC<IModalProps> = ({ show, title, close, children }) => {
+
+    // const childrenWithProps = React.Children.map(children, ((child, index) => {
+    //     return React.cloneElement((child), {close, index})
+    // }))
+
+    //children clone with props
+    // close wprowadzić do children
     return ReactDOM.createPortal(
         <>
             {
@@ -18,7 +27,10 @@ const Modal: React.FC<IModalProps> = ({ show, title, close, children }) => {
                     <div className="modalContainer">
                         <div className="modal" >
                             <header className="modal_header">
-                                <h2 className="modal_header-title">{title}</h2>
+                                <div className="modal_header-title">
+                                    <img className="modal_header-logo" src={Ethereum} />
+                                    <h2>{title}</h2>
+                                </div>
                                 <div className="close" onClick={() => close()}>X</div>
                             </header>
                             <main className="modal_content">
@@ -40,3 +52,4 @@ const Modal: React.FC<IModalProps> = ({ show, title, close, children }) => {
 }
 
 export default Modal;
+// <img className="logo" src={Ethereum} />

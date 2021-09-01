@@ -1,14 +1,13 @@
 import React, {useState} from "react";
 import './Dropdown.scss';
 
-const items = ['Ether', 'ERC20']
-
 interface IDropdownProps {
     title: string;
+    items: string[];
     callback: (childData: string) => void;
 }
 
-const Dropdown: React.FC<IDropdownProps> = ({title, callback}) => {
+const Dropdown: React.FC<IDropdownProps> = ({title, callback, items}) => {
     const [open, setOpen] = useState<boolean>(false);
     const [selected, setSelected] = useState<string>('');
     const toggle = () => setOpen(!open);

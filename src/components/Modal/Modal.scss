@@ -20,12 +20,20 @@
     &_header {
       position: relative;
       &-title {
-        text-align: left;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
       }
-
+      &-logo {
+        height: 40px;
+        width: 40px;
+        margin-right: 10px;
+        filter: invert(56%) sepia(36%) saturate(10%) hue-rotate(349deg) brightness(92%) contrast(88%);
+      }
       .close {
         position: absolute;
-        top: 0;
+        top: 1rem;
         right: 0;
         background: transparent;
         cursor: pointer;
@@ -49,6 +57,7 @@
       .modal-close {
         background-color: transparent;
         font-weight: 600;
+        border-radius: 4px;
         border: 1px solid #8C8C8C;
         &:hover {
           color: rgba(54, 67, 72, 0.8);
@@ -58,6 +67,7 @@
         margin-right: 1rem;
         background-color: rgba(54, 67, 72, 0.8);
         color: #fff;
+        border-radius: 4px;
         border: none;
         &:hover {
           background-color: #8C8C8C;
