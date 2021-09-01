@@ -2,7 +2,8 @@ import React from "react";
 import Dropdown from "../Dropdown/Dropdown";
 import './Form.scss';
 import useCurrencyModal from "../../hooks/useCurrencyModal";
-import FormFooter from "../FormFooter/FormFooter";
+import FormFooter from "./FormFooter/FormFooter";
+import FormInputs from "./FormInputs/FormInputs";
 
 interface IFormProps {
     inputPlaceholder: string;
@@ -41,6 +42,7 @@ const Form: React.FC<IFormProps> = ({inputPlaceholder, close}) => {
                     <Dropdown items={transactionSpeed} callback={handleSpeed} title="Speed"/>
                 </div>
             </div>
+            {/*<FormInputs inputPlaceholder={inputPlaceholder} currencies={currencies} transactionSpeed={transactionSpeed} />*/}
             {/*osobny komponent*/}
             {state.currency === 'ERC20' ?
                 <input type="text"

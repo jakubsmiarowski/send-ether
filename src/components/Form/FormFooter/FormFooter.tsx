@@ -1,5 +1,5 @@
 import React from "react";
-import useCurrencyModal from "../../hooks/useCurrencyModal";
+import useCurrencyModal from "../../../hooks/useCurrencyModal";
 
 interface IFormFooter {
     close: () => void;
