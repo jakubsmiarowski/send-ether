@@ -15,7 +15,7 @@ const Dropdown: React.FC<IDropdownProps> = ({title, callback, items}) => {
     function handleOnClick(item: string) {
         setSelected(item);
         setOpen(false);
-        callback(selected);
+        callback(item);
     }
 
     return (

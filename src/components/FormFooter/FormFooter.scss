@@ -1,16 +1,3 @@
-@import "src/App";
-
-.form__content {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 10px 0;
-}
-input {
-  @include styling;
-  padding: 10px 2em;
-  margin-bottom: 5px;
-}
 .form__footer {
   padding: 2rem 0 0;
   button {
@@ -37,4 +24,3 @@ input {
     }
   }
 }
-

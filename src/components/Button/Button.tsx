@@ -10,12 +10,11 @@ const Button: React.FC = () => {
     return (
         <div className='wrapper'>
             <button className='button' onClick={() => toggle()} disabled={isOpen}>
-                <img className='button_logo' src={Ethereum} />
+                <img className='button_logo' src={Ethereum} alt='ethereum logo' />
                 Send Ether
             </button>
-
-            <Modal show={isOpen} title={'My Modal'} close={toggle}>
-                <Form inputPlaceholder={'Amount'} dropdownPlaceholder={'Currency'} />
+            <Modal show={isOpen} title={'Send Ether'} close={toggle}>
+                <Form inputPlaceholder={'Amount'} close={toggle} />
             </Modal>
         </div>
     )

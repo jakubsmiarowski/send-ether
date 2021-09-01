@@ -1,78 +1,64 @@
-import React, {useState} from "react";
+import React from "react";
 import Dropdown from "../Dropdown/Dropdown";
 import './Form.scss';
 import useCurrencyModal from "../../hooks/useCurrencyModal";
-import { FormState } from "../../hooks/FormState";
-
+import FormFooter from "../FormFooter/FormFooter";
 
 interface IFormProps {
     inputPlaceholder: string;
-    dropdownPlaceholder: string
+    close: () => void;
 }
 
 const currencies = ['Ether', 'ERC20'];
-const transactionSpeed = ['Slow', 'Medium', 'Fast']
+const transactionSpeed = ['Low', 'Medium', 'High']
 
-const Form: React.FC<IFormProps> = ({inputPlaceholder, dropdownPlaceholder}) => {
+const Form: React.FC<IFormProps> = ({inputPlaceholder, close}) => {
 
-    // do wywalenia
-    const [currency, setCurrency] = useState<string>('');
-    const [speed, setSpeed] = useState<string>('');
-    // use reducer
-    const [formFields, setFormFields] = useState<FormState>({
-        amount: '',
-        currency: '',
-        receiversAddress: '',
-        transactionSpeed: ''
-    })
-
-    //useCurrencyModal
-
-    const inputsHandler = (e: any) => {
-        setFormFields({ ...formFields, [e.target.name]: e.target.value });
-    }
-
-    const handleSubmit = (e: any) => {
-        setFormFields({...formFields, currency, transactionSpeed: speed})
-        console.log(formFields);
-        e.preventDefault()
-    }
-
-    const handleCurrencyCallback = (childData: string) => {
-        setCurrency(childData);
-    };
-    const handleSpeedCallback = (childData: string) => {
-        setSpeed(childData);
-    };
+    const {state,
+           actions: {
+               handleSubmit,
+               handleAmountInput,
+               handleAddressInput,
+               handleCurrency,
+               handleSpeed
+           }
+    } = useCurrencyModal()
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="test">
+            {/*osobny komponent*/}
+            <div className="form__content">
                 <div>
                     <input name='amount'
                            placeholder={inputPlaceholder}
-                           value={formFields.amount}
-                           onChange={inputsHandler}/>
+                           value={state.amount}
+                           onChange={handleAmountInput}/>
                 </div>
                 <div>
-                    <Dropdown items={currencies} callback={handleCurrencyCallback} title={dropdownPlaceholder}/>
+                    <Dropdown items={currencies} callback={handleCurrency} title='Currency'/>
                 </div>
                 <div>
-                    <Dropdown items={transactionSpeed} callback={handleSpeedCallback} title="Speed"/>
+                    <Dropdown items={transactionSpeed} callback={handleSpeed} title="Speed"/>
                 </div>
             </div>
-            {formFields.currency === 'ERC20' ?
+            {/*osobny komponent*/}
+            {state.currency === 'ERC20' ?
                 <input type="text"
                        name="receiversAddress"
                        placeholder="Receivers Address"
-                       value={formFields.receiversAddress}
-                       onChange={inputsHandler}/>
+                       value={state.receiversAddress}
+                       onChange={handleAddressInput}/>
                 :
                 null
             }
-            <button className="submit">Submit</button>
+            {/*osobny komponent*/}
+            <footer className="form__footer">
+                <button className="form-close" onClick={() => close()}>Cancel</button>
+                <button className="submit" onClick={() => console.log(state)}>Submit</button>
+            </footer>
+            {/*<FormFooter close={close} />*/}
         </form>
     )
-}
+};
 
 export default Form;

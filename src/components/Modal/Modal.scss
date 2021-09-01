@@ -1,4 +1,4 @@
-.modalContainer {
+.container {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -17,21 +17,21 @@
     backdrop-filter: blur(5px);
     box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
 
-    &_header {
+    &__header {
       position: relative;
-      &-title {
+      &__title {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
       }
-      &-logo {
+      &__logo {
         height: 40px;
         width: 40px;
         margin-right: 10px;
         filter: invert(56%) sepia(36%) saturate(10%) hue-rotate(349deg) brightness(92%) contrast(88%);
       }
-      .close {
+      &__close {
         position: absolute;
         top: 1rem;
         right: 0;
@@ -48,31 +48,5 @@
       padding: 2rem 0;
     }
 
-    &_footer {
-      padding: 2rem 0 0;
-      button {
-        float: right;
-        padding: 0.5rem;
-      }
-      .modal-close {
-        background-color: transparent;
-        font-weight: 600;
-        border-radius: 4px;
-        border: 1px solid #8C8C8C;
-        &:hover {
-          color: rgba(54, 67, 72, 0.8);
-        }
-      }
-      .submit {
-        margin-right: 1rem;
-        background-color: rgba(54, 67, 72, 0.8);
-        color: #fff;
-        border-radius: 4px;
-        border: none;
-        &:hover {
-          background-color: #8C8C8C;
-        }
-      }
-    }
   }
 }
