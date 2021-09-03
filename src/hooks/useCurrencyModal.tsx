@@ -1,6 +1,7 @@
 import {Reducer, useReducer, useCallback} from "react";
 import {FormState} from "../assets/types/formState";
 import {FormActions} from "../assets/types/formActions";
+import useUpdateLogger from "./useUpdateLogger";
 
 const ACTIONS = {
     AMOUNT_UPDATE: 'amount-update',
@@ -52,6 +53,7 @@ export const reducer: Reducer<FormState, FormActions> = (state, action) => {
 
 function useCurrencyModal() {
     const [formFields, dispatch] = useReducer(reducer, initialState);
+    useUpdateLogger(formFields);
 
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
@@ -60,7 +62,6 @@ function useCurrencyModal() {
     },[])
 
     const handleAmountInput = useCallback((e) => {
-        e.preventDefault();
         dispatch({ type: ACTIONS.AMOUNT_UPDATE, payload: e.target.value });
     },[])
 

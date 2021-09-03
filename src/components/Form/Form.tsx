@@ -4,6 +4,7 @@ import './Form.scss';
 import useCurrencyModal from "../../hooks/useCurrencyModal";
 import FormFooter from "./FormFooter/FormFooter";
 import FormInputs from "./FormInputs/FormInputs";
+import useEthers from "../../hooks/useEthers";
 
 interface IFormProps {
     inputPlaceholder: string;
@@ -24,6 +25,7 @@ const Form: React.FC<IFormProps> = ({inputPlaceholder, close}) => {
                handleSpeed
            }
     } = useCurrencyModal()
+    const { sendCoins } = useEthers();
 
     return (
         <form onSubmit={handleSubmit}>
@@ -56,7 +58,7 @@ const Form: React.FC<IFormProps> = ({inputPlaceholder, close}) => {
             {/*osobny komponent*/}
             <footer className="form__footer">
                 <button className="form-close" onClick={() => close()}>Cancel</button>
-                <button className="submit" onClick={() => console.log(state)}>Submit</button>
+                <button className="submit" onClick={() => sendCoins}>Submit</button>
             </footer>
             {/*<FormFooter close={close} />*/}
         </form>

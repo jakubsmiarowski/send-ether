@@ -14,7 +14,7 @@ const modalRoot = document.getElementById("modal") as HTMLElement;
 
 const Modal: React.FC<IModalProps> = ({ show, title, close, children }) => {
 
-    const { requestAccount, getAccount } = useEthers();
+    const { getAccount } = useEthers();
 
     return ReactDOM.createPortal(
         <>
@@ -32,7 +32,6 @@ const Modal: React.FC<IModalProps> = ({ show, title, close, children }) => {
                             <main className="modal__content">
                                 {children}
                             </main>
-                            <button onClick={requestAccount}> login</button>
                             <button onClick={getAccount}> get account</button>
                         </div>
                     </div>
