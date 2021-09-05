@@ -1,31 +1,33 @@
-import React from "react";
-import useCurrencyModal from "../../../hooks/useCurrencyModal";
+import React, {useContext} from "react";
 import Dropdown from "../../Dropdown/Dropdown";
+import {CurrencyContext, FormContext, FormUpdateContext} from "../FormContext";
+import useUpdateLogger from "../../../hooks/useUpdateLogger";
+import Input from "../../Input/Input";
 
-interface IFormInputs {
-    inputPlaceholder: string;
-    currencies: string[];
-    transactionSpeed: string[];
-}
+const FormInputs: React.FC = () => {
 
-const FormFooter: React.FC<IFormInputs> = ({ inputPlaceholder, currencies, transactionSpeed }) => {
-    const {state, actions: { handleAmountInput, handleCurrency, handleSpeed}} = useCurrencyModal();
+    const { state } = useContext(FormContext);
+    const { actions } = useContext(FormUpdateContext);
+    const { currencies, transactionSpeed } = useContext(CurrencyContext);
+    useUpdateLogger(state);
+
     return (
         <div className="form__content">
-            <div>
-                <input name='amount'
-                       placeholder={inputPlaceholder}
-                       value={state.amount}
-                       onChange={handleAmountInput}/>
+            <div className="form__content--flex">
+                <Input name='amount' placeholder='Amount' value={state.amount} action={actions.handleAmountInput} />
+                <Input name="receiversAddress" placeholder="Receivers Address" value={state.receiversAddress} action={actions.handleAddressInput} />
+                {state.currency === 'ERC20' ?
+                    <Input name="tokenAddress" placeholder="Token Address" value={state.tokenAddress} action={actions.handleTokenAddressInput} />
+                    :
+                    null
+                }
             </div>
-            <div>
-                <Dropdown items={currencies} callback={handleCurrency} title='Currency'/>
-            </div>
-            <div>
-                <Dropdown items={transactionSpeed} callback={handleSpeed} title="Speed"/>
+            <div className="form__content--dropdown">
+                <Dropdown items={currencies} callback={actions.handleCurrency} title='Currency'/>
+                <Dropdown items={transactionSpeed} callback={actions.handleSpeed} title="Speed"/>
             </div>
         </div>
     )
 }
 
-export default FormFooter;
+export default FormInputs;

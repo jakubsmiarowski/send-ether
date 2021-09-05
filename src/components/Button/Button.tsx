@@ -14,7 +14,7 @@ const Button: React.FC = () => {
                 Send Ether
             </button>
             <Modal show={isOpen} title={'Send Ether'} close={toggle}>
-                <Form inputPlaceholder={'Amount'} close={toggle} />
+                <Form close={toggle} />
             </Modal>
         </div>
     )
@@ -22,4 +22,5 @@ const Button: React.FC = () => {
 
 export default Button;
 
+//po wlaczeniu modala musi byc info o zalogowaniu, jesli nie zalogowany => modal do logowania
 

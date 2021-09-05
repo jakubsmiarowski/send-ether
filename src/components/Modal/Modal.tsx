@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import './Modal.scss';
 import Ethereum from '../../assets/img/ethereum-brands.svg'
 import useEthers from "../../hooks/useEthers";
+import useCurrencyModal from "../../hooks/useCurrencyModal";
 
 interface IModalProps {
     show: boolean;
@@ -14,7 +15,7 @@ const modalRoot = document.getElementById("modal") as HTMLElement;
 
 const Modal: React.FC<IModalProps> = ({ show, title, close, children }) => {
 
-    const { getAccount } = useEthers();
+    const { getAccount, getBalance, sendCoins } = useEthers();
 
     return ReactDOM.createPortal(
         <>
@@ -33,6 +34,8 @@ const Modal: React.FC<IModalProps> = ({ show, title, close, children }) => {
                                 {children}
                             </main>
                             <button onClick={getAccount}> get account</button>
+                            <button onClick={getBalance}> get balance</button>
+                            <button onClick={sendCoins}> send </button>
                         </div>
                     </div>
                     : <div />
@@ -40,6 +43,6 @@ const Modal: React.FC<IModalProps> = ({ show, title, close, children }) => {
         </>
     ,
         modalRoot);
-};
+}
 
 export default Modal;

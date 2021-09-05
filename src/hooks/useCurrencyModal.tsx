@@ -3,20 +3,22 @@ import {FormState} from "../assets/types/formState";
 import {FormActions} from "../assets/types/formActions";
 import useUpdateLogger from "./useUpdateLogger";
 
-const ACTIONS = {
+export const ACTIONS = {
     AMOUNT_UPDATE: 'amount-update',
     CURRENCY_UPDATE: 'currency-update',
     ADDRESS_UPDATE: 'address-update',
+    TOKEN_ADDRESS_UPDATE: 'token_address-update',
     SPEED_UPDATE: 'speed-update',
     SUBMIT_FORM: 'submit-form',
     RESET_FORM: 'reset-form',
 }
 
-const initialState: FormState = {
+export const initialState: FormState = {
     amount: '',
     currency: '',
     receiversAddress: '',
     transactionSpeed: '',
+    tokenAddress: ''
 }
 
 export const reducer: Reducer<FormState, FormActions> = (state, action) => {
@@ -36,6 +38,11 @@ export const reducer: Reducer<FormState, FormActions> = (state, action) => {
             return {
                 ...state,
                 receiversAddress: payload
+            };
+        case ACTIONS.TOKEN_ADDRESS_UPDATE:
+            return {
+                ...state,
+                tokenAddress: payload
             }
         case ACTIONS.SPEED_UPDATE:
             return {
@@ -53,13 +60,13 @@ export const reducer: Reducer<FormState, FormActions> = (state, action) => {
 
 function useCurrencyModal() {
     const [formFields, dispatch] = useReducer(reducer, initialState);
-    useUpdateLogger(formFields);
 
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
-        dispatch({ type: 'SUBMIT_FORM' })
-        dispatch({ type: 'RESET_FORM' });
-    },[])
+        dispatch({ type: ACTIONS.SUBMIT_FORM });
+        // console.log(state);
+        // dispatch({ type: 'RESET_FORM' });
+    },[formFields])
 
     const handleAmountInput = useCallback((e) => {
         dispatch({ type: ACTIONS.AMOUNT_UPDATE, payload: e.target.value });
@@ -68,6 +75,10 @@ function useCurrencyModal() {
     const handleAddressInput = useCallback((e) => {
         e.preventDefault();
         dispatch({ type: ACTIONS.ADDRESS_UPDATE, payload: e.target.value });
+    }, [])
+
+    const handleTokenAddressInput = useCallback((e) => {
+        dispatch({ type: ACTIONS.TOKEN_ADDRESS_UPDATE, payload: e.target.value });
     }, [])
 
     const handleCurrency = useCallback((e) => {
@@ -84,6 +95,7 @@ function useCurrencyModal() {
             handleSubmit,
             handleAmountInput,
             handleAddressInput,
+            handleTokenAddressInput,
             handleCurrency,
             handleSpeed
         }

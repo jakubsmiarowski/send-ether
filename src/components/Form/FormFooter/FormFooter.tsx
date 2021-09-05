@@ -1,12 +1,14 @@
-import React from "react";
-import useCurrencyModal from "../../../hooks/useCurrencyModal";
+import React, {useContext} from "react";
+import {FormContext} from "../FormContext";
 
 interface IFormFooter {
     close: () => void;
 }
 
 const FormFooter: React.FC<IFormFooter> = ({ close }) => {
-    const {state} = useCurrencyModal();
+
+    const { state } = useContext(FormContext);
+
     return (
         <footer className="form__footer">
             <button className="form-close" onClick={() => close()}>

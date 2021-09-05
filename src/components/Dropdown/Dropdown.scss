@@ -5,6 +5,7 @@
   flex-wrap: wrap;
   max-width: 150px;
   position: relative;
+  margin-left: 10px;
 
   .dd-header {
     @include styling();
