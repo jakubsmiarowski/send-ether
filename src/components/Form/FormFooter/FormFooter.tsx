@@ -1,16 +1,17 @@
-import React, {Dispatch, SetStateAction} from "react";
+import React, {Dispatch, SetStateAction, useContext} from "react";
 import './FormFooter.scss';
 import useEthers from "../../../hooks/useEthers";
+import {PacmanLoader} from "react-spinners";
+import {AppContext} from "../../../AppContext";
 
 interface IFormFooter {
     close: () => void;
-    setIsOngoingTransaction: Dispatch<SetStateAction<boolean>>;
-    setIsPendingTransaction: Dispatch<SetStateAction<boolean>>
 }
 
-const FormFooter: React.FC<IFormFooter> = ({ close, setIsOngoingTransaction, setIsPendingTransaction }) => {
+const FormFooter: React.FC<IFormFooter> = ({ close }) => {
 
     const { sendCoins } = useEthers();
+    const { ongoingTransaction: {setIsOngoingTransaction}, pendingTransaction: {setIsPendingTransaction} } = useContext(AppContext);
 
     const handlePropsActions = () => {
         close();

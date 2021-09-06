@@ -1,19 +1,29 @@
-import React, {Dispatch, SetStateAction} from "react";
+import React, {useContext} from "react";
 import ReactDOM from "react-dom";
 import './Modal.scss';
 import Ethereum from '../../assets/img/ethereum-brands.svg'
+import {PacmanLoader} from "react-spinners";
+import {AppContext} from "../../AppContext";
 
 interface IModalProps {
     show: boolean;
     title: string;
     close: () => void;
-    setIsPendingTransaction: Dispatch<SetStateAction<boolean>>;
-    setIsOngoingTransaction: Dispatch<SetStateAction<boolean>>;
 }
 
 const modalRoot = document.getElementById("modal") as HTMLElement;
 
-const Modal: React.FC<IModalProps> = ({ show, title, close, setIsPendingTransaction, setIsOngoingTransaction, children }) => {
+const Modal: React.FC<IModalProps> = ({ show, title, close, children }) => {
+
+    const {
+        ongoingTransaction: {
+            setIsOngoingTransaction
+        },
+        pendingTransaction: {
+            isPendingTransaction,
+            setIsPendingTransaction
+        }
+    } = useContext(AppContext)
 
     const handlePropsActions = () => {
         close();
@@ -37,6 +47,13 @@ const Modal: React.FC<IModalProps> = ({ show, title, close, setIsPendingTransact
                             <main className="modal__content">
                                 {children}
                             </main>
+                            {isPendingTransaction ?
+                                <div className="modal--pacman">
+                                    <PacmanLoader loading={isPendingTransaction} color='#f1c40f'/>
+                                </div>
+                                :
+                                null
+                            }
                         </div>
                     </div>
                     : <div />
@@ -44,6 +61,8 @@ const Modal: React.FC<IModalProps> = ({ show, title, close, setIsPendingTransact
         </>
     ,
         modalRoot);
-};
+}
 
 export default Modal;
+
+// style={{backgroundColor: isPendingTransaction ? '' : ''}

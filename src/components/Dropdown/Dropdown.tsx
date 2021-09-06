@@ -4,13 +4,18 @@ import './Dropdown.scss';
 interface IDropdownProps {
     title: string;
     items: string[];
+    isPendingTransaction: boolean;
     callback: (childData: string) => void;
 }
 
-const Dropdown: React.FC<IDropdownProps> = ({title, callback, items}) => {
+const Dropdown: React.FC<IDropdownProps> = ({title, callback, items, isPendingTransaction}) => {
     const [open, setOpen] = useState<boolean>(false);
     const [selected, setSelected] = useState<string>('');
-    const toggle = () => setOpen(!open);
+    const toggle = () => {
+        if (!isPendingTransaction) {
+            setOpen(!open)
+        }
+    };
 
     function handleOnClick(item: string) {
         setSelected(item);
@@ -23,6 +28,7 @@ const Dropdown: React.FC<IDropdownProps> = ({title, callback, items}) => {
             <div
                 tabIndex={0}
                 className="dd-header"
+                style={{ color: isPendingTransaction ? '#8C8C8C' : 'black'}}
                 role="button"
                 onKeyPress={() => toggle()}
                 onClick={() => toggle()}

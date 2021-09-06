@@ -1,25 +1,19 @@
-import React, {Dispatch, SetStateAction, useContext} from "react";
+import React, {useContext} from "react";
 import FormFooter from "./FormFooter/FormFooter";
 import FormInputs from "./FormInputs/FormInputs";
 import {AppContext} from '../../AppContext';
 
-
 interface IFormProps {
     close: () => void;
-    setIsOngoingTransaction: Dispatch<SetStateAction<boolean>>;
-    setIsPendingTransaction: Dispatch<SetStateAction<boolean>>
-    isPendingTransaction: boolean
 }
 
-const Form: React.FC<IFormProps> = ({ close, setIsOngoingTransaction, setIsPendingTransaction, isPendingTransaction }) => {
+const Form: React.FC<IFormProps> = ({ close }) => {
 
     const { actions: {handleSubmit} } = useContext(AppContext);
     return (
         <form onSubmit={handleSubmit} >
-            <FormInputs isPendingTransaction={isPendingTransaction}/>
-            <FormFooter close={close}
-                        setIsOngoingTransaction={setIsOngoingTransaction}
-                        setIsPendingTransaction={setIsPendingTransaction}/>
+            <FormInputs/>
+            <FormFooter close={close} />
         </form>
     )
 };

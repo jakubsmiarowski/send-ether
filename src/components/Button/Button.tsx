@@ -1,13 +1,22 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import Modal from "../Modal/Modal";
 import Form from "../Form/Form";
 import useEthers from "../../hooks/useEthers";
 import Ethereum from '../../assets/img/ethereum-brands.svg'
 import './Button.scss';
+import {AppContext} from "../../AppContext";
 
 const Button: React.FC = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const {getAccount, isOngoingTransaction, setIsOngoingTransaction, isPendingTransaction, setIsPendingTransaction} = useEthers();
+    const {getAccount} = useEthers();
+    const {
+        ongoingTransaction: {
+            isOngoingTransaction
+        },
+        pendingTransaction: {
+            isPendingTransaction
+        }
+    } = useContext(AppContext)
     const toggle = () => setIsOpen(!isOpen);
 
     return (
@@ -22,13 +31,8 @@ const Button: React.FC = () => {
             </button>
             <Modal show={isOpen}
                    title='Send Ether'
-                   close={toggle}
-                   setIsPendingTransaction={setIsPendingTransaction}
-                   setIsOngoingTransaction={setIsOngoingTransaction}>
-                <Form close={toggle}
-                      setIsOngoingTransaction={setIsOngoingTransaction}
-                      setIsPendingTransaction={setIsPendingTransaction}
-                      isPendingTransaction={isPendingTransaction}/>
+                   close={toggle}>
+                <Form close={toggle} />
             </Modal>
         </div>
     )

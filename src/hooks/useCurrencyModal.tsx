@@ -1,4 +1,4 @@
-import {Reducer, useReducer, useCallback} from "react";
+import {Reducer, useReducer, useCallback, useState} from "react";
 import {FormState} from "../assets/types/formState";
 import {FormActions} from "../assets/types/formActions";
 import useUpdateLogger from "./useUpdateLogger";
@@ -60,6 +60,8 @@ export const reducer: Reducer<FormState, FormActions> = (state, action) => {
 
 function useCurrencyModal() {
     const [formFields, dispatch] = useReducer(reducer, initialState);
+    const [isOngoingTransaction, setIsOngoingTransaction] = useState<boolean>(false);
+    const [isPendingTransaction, setIsPendingTransaction] = useState<boolean>(false);
 
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
@@ -95,6 +97,14 @@ function useCurrencyModal() {
             handleTokenAddressInput,
             handleCurrency,
             handleSpeed
+        },
+        ongoingTransaction: {
+            isOngoingTransaction,
+            setIsOngoingTransaction,
+        },
+        pendingTransaction: {
+            isPendingTransaction,
+            setIsPendingTransaction
         }
     };
 }

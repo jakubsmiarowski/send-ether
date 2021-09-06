@@ -44,9 +44,11 @@
       }
     }
 
-    &_content {
-      padding: 2rem 0;
+    &--pacman {
+      margin: 2em 0;
+      height: 100%;
+      display: flex;
+      justify-content: center;
     }
-
   }
 }

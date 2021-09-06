@@ -3,6 +3,8 @@ import useCurrencyModal, {initialState} from "./hooks/useCurrencyModal";
 import {FormState} from "./assets/types/formState";
 import {FormContextActions} from "./assets/types/formContextActions";
 import {DropdownContextType} from "./assets/types/currencyContextType";
+import {OngoingTransactionType} from "./assets/types/ongoingTransactionType";
+import {PendingTransactionType} from "./assets/types/pendingTransactionType";
 
 const dropdownOptions: DropdownContextType = {
     currencies: ['Ether', 'ERC20'],
@@ -12,20 +14,24 @@ const dropdownOptions: DropdownContextType = {
 export const AppContext = React.createContext<{
     state: FormState,
     actions: FormContextActions,
-    dropdownOptions: DropdownContextType
+    dropdownOptions: DropdownContextType,
+    ongoingTransaction: OngoingTransactionType,
+    pendingTransaction: PendingTransactionType
 }>({
     state: initialState,
     actions: {} as FormContextActions,
-    dropdownOptions: { currencies: [], transactionSpeed: []}
+    dropdownOptions: { currencies: [], transactionSpeed: []},
+    ongoingTransaction: {} as OngoingTransactionType,
+    pendingTransaction: {} as PendingTransactionType
     }
 )
 
 const AppProvider: React.FC = ({ children }) => {
 
-    const {state, actions} = useCurrencyModal();
+    const {state, actions, ongoingTransaction, pendingTransaction} = useCurrencyModal();
 
     return (
-        <AppContext.Provider value={{state, actions, dropdownOptions}}>
+        <AppContext.Provider value={{state, actions, dropdownOptions, ongoingTransaction, pendingTransaction}}>
             {children}
         </AppContext.Provider>
     )

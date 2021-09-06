@@ -1,7 +1,5 @@
 import Token from '../artifacts/contracts/Token.sol/Token.json';
-import useUpdateLogger from "./useUpdateLogger";
-import Web3Provider from "web3-react";
-import {useContext, useState} from "react";
+import {useContext} from "react";
 import {AppContext} from "../AppContext";
 import web3Service from "../Web3Controller/Web3Controller";
 
@@ -10,9 +8,20 @@ const web3 = new Web3(Web3.givenProvider);
 
 function useEthers() {
 
-    const { state: { currency, amount, receiversAddress } } = useContext(AppContext)
-    const [isOngoingTransaction, setIsOngoingTransaction] = useState<boolean>(false);
-    const [isPendingTransaction, setIsPendingTransaction] = useState<boolean>(false);
+    const {
+        state: {
+            currency,
+            amount,
+            receiversAddress,
+            transactionSpeed
+        },
+        ongoingTransaction: {
+            setIsOngoingTransaction
+        },
+        pendingTransaction: {
+            setIsPendingTransaction
+        }
+    } = useContext(AppContext)
 
     async function getAccount() {
         setIsOngoingTransaction(true);
@@ -28,12 +37,21 @@ function useEthers() {
         event.preventDefault();
         await getBalance();
         const accounts = await web3.eth.getAccounts();
-        const transactionObject = {
+        let transactionObject = {
             from: accounts[0],
             to: receiversAddress,
-            value: web3.utils.toWei(amount, 'ether')
-        }
+            value: web3.utils.toWei(amount, 'ether'),
+        };
+        // if (transactionSpeed === 'Low') {
+        //     Object.assign(transactionObject, { gasPrice: 1000})
+        // } else if (transactionSpeed === 'Medium') {
+        //     Object.assign(transactionObject, { gasPrice: 10000})
+        // } else {
+        //     Object.assign(transactionObject, { gasPrice: 1000000})
+        // }
+
         await web3Service.sendCoins(transactionObject);
+        console.log(web3Service.accounts)
         // ABI eth - https://ethereum.stackexchange.com/questions/32959/how-to-use-web3-to-send-money-from-wallet-a-to-wallet-b/32965
 
         // const contract = new ethers.Contract(tokenAddress, Token.abi, signer);
@@ -47,10 +65,6 @@ function useEthers() {
         getAccount,
         getBalance,
         sendCoins,
-        isPendingTransaction,
-        setIsPendingTransaction,
-        isOngoingTransaction,
-        setIsOngoingTransaction,
     }
 }
 

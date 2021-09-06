@@ -15,11 +15,6 @@
     flex-direction: row;
     height: 100%;
   }
-  &--pacman {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-  }
 }
 input {
   @include styling;

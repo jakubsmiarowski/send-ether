@@ -3,13 +3,8 @@ import Dropdown from "../../Dropdown/Dropdown";
 import {AppContext} from "../../../AppContext";
 import Input from "../../Input/Input";
 import './FormInputs.scss';
-import PacmanLoader from "react-spinners/PacmanLoader";
 
-interface IFormInputsProps {
-    isPendingTransaction: boolean
-}
-
-const FormInputs: React.FC<IFormInputsProps> = ({isPendingTransaction}) => {
+const FormInputs: React.FC = () => {
 
     const {
         state: {
@@ -28,7 +23,8 @@ const FormInputs: React.FC<IFormInputsProps> = ({isPendingTransaction}) => {
         dropdownOptions: {
             currencies,
             transactionSpeed
-        }
+        },
+        pendingTransaction: { isPendingTransaction }
     } = useContext(AppContext)
 
     return (
@@ -55,11 +51,8 @@ const FormInputs: React.FC<IFormInputsProps> = ({isPendingTransaction}) => {
                 }
             </div>
             <div className="form__content--dropdown">
-                <Dropdown items={currencies} callback={handleCurrency} title='Currency'/>
-                <Dropdown items={transactionSpeed} callback={handleSpeed} title="Speed"/>
-            </div>
-            <div className="form__content--pacman">
-                <PacmanLoader loading={isPendingTransaction} color='#8C8C8C'/>
+                <Dropdown items={currencies} callback={handleCurrency} title='Currency' isPendingTransaction={isPendingTransaction}/>
+                <Dropdown items={transactionSpeed} callback={handleSpeed} title="Speed" isPendingTransaction={isPendingTransaction}/>
             </div>
         </div>
     )
