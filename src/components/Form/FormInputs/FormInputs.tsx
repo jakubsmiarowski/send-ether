@@ -1,30 +1,53 @@
 import React, {useContext} from "react";
 import Dropdown from "../../Dropdown/Dropdown";
-import {CurrencyContext, FormContext, FormUpdateContext} from "../FormContext";
-import useUpdateLogger from "../../../hooks/useUpdateLogger";
+import {AppContext} from "../../../AppContext";
 import Input from "../../Input/Input";
+import './FormInputs.scss';
+import PacmanLoader from "react-spinners/PacmanLoader";
 
-const FormInputs: React.FC = () => {
+interface IFormInputsProps {
+    isPendingTransaction: boolean
+}
 
-    const { state } = useContext(FormContext);
-    const { actions } = useContext(FormUpdateContext);
-    const { currencies, transactionSpeed } = useContext(CurrencyContext);
-    useUpdateLogger(state);
+const FormInputs: React.FC<IFormInputsProps> = ({isPendingTransaction}) => {
+
+    const {
+        state: {
+            amount,
+            currency,
+            receiversAddress,
+            tokenAddress
+        },
+        actions: {
+            handleAmountInput,
+            handleAddressInput,
+            handleTokenAddressInput,
+            handleCurrency,
+            handleSpeed
+        },
+        dropdownOptions: {
+            currencies,
+            transactionSpeed
+        }
+    } = useContext(AppContext)
 
     return (
         <div className="form__content">
-            <div className="form__content--flex">
-                <Input name='amount' placeholder='Amount' value={state.amount} action={actions.handleAmountInput} />
-                <Input name="receiversAddress" placeholder="Receivers Address" value={state.receiversAddress} action={actions.handleAddressInput} />
-                {state.currency === 'ERC20' ?
-                    <Input name="tokenAddress" placeholder="Token Address" value={state.tokenAddress} action={actions.handleTokenAddressInput} />
+            <div className="form__content--input">
+                <Input name='amount' placeholder='Amount' value={amount} action={handleAmountInput} isPendingTransaction={isPendingTransaction}/>
+                <Input name="receiversAddress" placeholder="Receivers Address" value={receiversAddress} action={handleAddressInput} isPendingTransaction={isPendingTransaction} />
+                {currency === 'ERC20' ?
+                    <Input name="tokenAddress" placeholder="Token Address" value={tokenAddress} action={handleTokenAddressInput} isPendingTransaction={isPendingTransaction}/>
                     :
                     null
                 }
             </div>
             <div className="form__content--dropdown">
-                <Dropdown items={currencies} callback={actions.handleCurrency} title='Currency'/>
-                <Dropdown items={transactionSpeed} callback={actions.handleSpeed} title="Speed"/>
+                <Dropdown items={currencies} callback={handleCurrency} title='Currency'/>
+                <Dropdown items={transactionSpeed} callback={handleSpeed} title="Speed"/>
+            </div>
+            <div className="form__content--pacman">
+                <PacmanLoader loading={isPendingTransaction} color='#8C8C8C'/>
             </div>
         </div>
     )

@@ -14,11 +14,13 @@
   align-items: center;
   position: relative;
   transition: all 0.3s ease;
+  word-wrap: break-word;
+  max-width: 200px;
   &:hover {
     background-color: #8C8C8C;
     color: white;
   }
-  &_logo {
+  &__logo {
     height: 20px;
     width: 20px;
     margin-right: 10px;

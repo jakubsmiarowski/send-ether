@@ -1,6 +1,5 @@
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import './Dropdown.scss';
-import {CurrencyContext} from "../Form/FormContext";
 
 interface IDropdownProps {
     title: string;

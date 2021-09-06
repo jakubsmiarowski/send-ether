@@ -1,7 +1,6 @@
 import {useEffect} from "react";
-import {FormState} from "../assets/types/formState";
 
-export default function useUpdateLogger(value: FormState) {
+export default function useUpdateLogger(value: any) {
     useEffect(() => {
         console.log(value)
     }, [value])

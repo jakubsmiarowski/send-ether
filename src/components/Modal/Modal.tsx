@@ -1,21 +1,25 @@
-import React from "react";
+import React, {Dispatch, SetStateAction} from "react";
 import ReactDOM from "react-dom";
 import './Modal.scss';
 import Ethereum from '../../assets/img/ethereum-brands.svg'
-import useEthers from "../../hooks/useEthers";
-import useCurrencyModal from "../../hooks/useCurrencyModal";
 
 interface IModalProps {
     show: boolean;
     title: string;
     close: () => void;
+    setIsPendingTransaction: Dispatch<SetStateAction<boolean>>;
+    setIsOngoingTransaction: Dispatch<SetStateAction<boolean>>;
 }
 
 const modalRoot = document.getElementById("modal") as HTMLElement;
 
-const Modal: React.FC<IModalProps> = ({ show, title, close, children }) => {
+const Modal: React.FC<IModalProps> = ({ show, title, close, setIsPendingTransaction, setIsOngoingTransaction, children }) => {
 
-    const { getAccount, getBalance, sendCoins } = useEthers();
+    const handlePropsActions = () => {
+        close();
+        setIsOngoingTransaction(false);
+        setIsPendingTransaction(false);
+    }
 
     return ReactDOM.createPortal(
         <>
@@ -25,17 +29,14 @@ const Modal: React.FC<IModalProps> = ({ show, title, close, children }) => {
                         <div className="modal" >
                             <header className="modal__header">
                                 <div className="modal__header__title">
-                                    <img className="modal__header__logo" src={Ethereum} />
+                                    <img className="modal__header__logo" src={Ethereum} alt='ethereum logo'/>
                                     <h2>{title}</h2>
                                 </div>
-                                <div className="modal__header__close" onClick={() => close()}>X</div>
+                                <div className="modal__header__close" onClick={() => handlePropsActions()}>X</div>
                             </header>
                             <main className="modal__content">
                                 {children}
                             </main>
-                            <button onClick={getAccount}> get account</button>
-                            <button onClick={getBalance}> get balance</button>
-                            <button onClick={sendCoins}> send </button>
                         </div>
                     </div>
                     : <div />

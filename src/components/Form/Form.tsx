@@ -1,28 +1,28 @@
-import React from "react";
-import './Form.scss';
-import useCurrencyModal from "../../hooks/useCurrencyModal";
+import React, {Dispatch, SetStateAction, useContext} from "react";
 import FormFooter from "./FormFooter/FormFooter";
 import FormInputs from "./FormInputs/FormInputs";
-import useEthers from "../../hooks/useEthers";
-import FormProvider from './FormContext'
+import {AppContext} from '../../AppContext';
+
 
 interface IFormProps {
     close: () => void;
+    setIsOngoingTransaction: Dispatch<SetStateAction<boolean>>;
+    setIsPendingTransaction: Dispatch<SetStateAction<boolean>>
+    isPendingTransaction: boolean
 }
 
-const Form: React.FC<IFormProps> = ({ close }) => {
+const Form: React.FC<IFormProps> = ({ close, setIsOngoingTransaction, setIsPendingTransaction, isPendingTransaction }) => {
 
-    const { actions } = useCurrencyModal();
-    const { sendCoins } = useEthers();
-
+    const { actions: {handleSubmit} } = useContext(AppContext);
     return (
-        <FormProvider>
-            <form onSubmit={actions.handleSubmit}>
-                <FormInputs />
-                <FormFooter close={close} />
-            </form>
-        </FormProvider>
+        <form onSubmit={handleSubmit} >
+            <FormInputs isPendingTransaction={isPendingTransaction}/>
+            <FormFooter close={close}
+                        setIsOngoingTransaction={setIsOngoingTransaction}
+                        setIsPendingTransaction={setIsPendingTransaction}/>
+        </form>
     )
 };
 
 export default Form;
+// 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266

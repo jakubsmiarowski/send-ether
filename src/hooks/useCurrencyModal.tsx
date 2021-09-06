@@ -3,7 +3,7 @@ import {FormState} from "../assets/types/formState";
 import {FormActions} from "../assets/types/formActions";
 import useUpdateLogger from "./useUpdateLogger";
 
-export const ACTIONS = {
+const ACTIONS = {
     AMOUNT_UPDATE: 'amount-update',
     CURRENCY_UPDATE: 'currency-update',
     ADDRESS_UPDATE: 'address-update',
@@ -64,16 +64,13 @@ function useCurrencyModal() {
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
         dispatch({ type: ACTIONS.SUBMIT_FORM });
-        // console.log(state);
-        // dispatch({ type: 'RESET_FORM' });
-    },[formFields])
+    },[])
 
     const handleAmountInput = useCallback((e) => {
         dispatch({ type: ACTIONS.AMOUNT_UPDATE, payload: e.target.value });
     },[])
 
     const handleAddressInput = useCallback((e) => {
-        e.preventDefault();
         dispatch({ type: ACTIONS.ADDRESS_UPDATE, payload: e.target.value });
     }, [])
 
