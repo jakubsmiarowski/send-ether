@@ -3,39 +3,24 @@ import useUpdateLogger from "./useUpdateLogger";
 import Web3Provider from "web3-react";
 import {useContext, useState} from "react";
 import {AppContext} from "../AppContext";
+import web3Service from "../Web3Controller/Web3Controller";
 
-declare const window: any;
 const Web3 = require('web3');
 const web3 = new Web3(Web3.givenProvider);
 
 function useEthers() {
 
-    const { state: { amount, receiversAddress } } = useContext(AppContext)
-    const [balance, setBalance] = useState<string>('');
+    const { state: { currency, amount, receiversAddress } } = useContext(AppContext)
     const [isOngoingTransaction, setIsOngoingTransaction] = useState<boolean>(false);
     const [isPendingTransaction, setIsPendingTransaction] = useState<boolean>(false);
 
     async function getAccount() {
-        const [account] = await window.ethereum.request({ method: 'eth_requestAccounts' })
-        console.log("Account: ", account.toString());
         setIsOngoingTransaction(true);
-        // Web3Controller.getAccount()
+        await web3Service.getAccount();
     }
 
     async function getBalance() {
-        const accounts = await web3.eth.getAccounts();
-        web3.currentProvider.sendAsync({
-            method: 'personal_sign',
-            params: [
-                web3.utils.fromAscii('Personal Sign needed to check balance'),
-                accounts[0],
-            ],
-            from: accounts[0],
-        }, function (err: any, result: any) {
-            console.log(err, result);
-        });
-        await web3.eth.getBalance(accounts[0], (err: Error, bal: string) => console.log(bal))
-            .then((result: any)=> setBalance(web3.utils.fromWei(result, 'ether')));
+        await web3Service.getBalance();
         setIsPendingTransaction(true);
     }
 
@@ -48,10 +33,7 @@ function useEthers() {
             to: receiversAddress,
             value: web3.utils.toWei(amount, 'ether')
         }
-        // Web3Controller.send(transactionObject)
-
-        await web3.eth.sendTransaction(transactionObject)
-            .then((receipt: any) => console.log(receipt))
+        await web3Service.sendCoins(transactionObject);
         // ABI eth - https://ethereum.stackexchange.com/questions/32959/how-to-use-web3-to-send-money-from-wallet-a-to-wallet-b/32965
 
         // const contract = new ethers.Contract(tokenAddress, Token.abi, signer);
@@ -61,7 +43,15 @@ function useEthers() {
         console.log(`${amount} Coins successfully sent to ${receiversAddress}`);
     }
 
-    return { getAccount, sendCoins, isPendingTransaction, setIsPendingTransaction, isOngoingTransaction, setIsOngoingTransaction, balance }
+    return {
+        getAccount,
+        getBalance,
+        sendCoins,
+        isPendingTransaction,
+        setIsPendingTransaction,
+        isOngoingTransaction,
+        setIsOngoingTransaction,
+    }
 }
 
 // static buyEventToken = (eventContract, userAddress, preciseAmount) => {

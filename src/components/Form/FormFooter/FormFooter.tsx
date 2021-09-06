@@ -18,9 +18,9 @@ const FormFooter: React.FC<IFormFooter> = ({ close, setIsOngoingTransaction, set
         setIsPendingTransaction(false);
     }
 
-    const transaction = (e: any) => {
+    async function transaction(e: any) {
         setIsPendingTransaction(true);
-        sendCoins(e).then(() => handlePropsActions())
+        await sendCoins(e).then(() => handlePropsActions())
     }
 
     return (

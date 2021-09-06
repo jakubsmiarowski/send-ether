@@ -17,7 +17,7 @@ const Button: React.FC = () => {
                     disabled={isOpen && isOngoingTransaction && isPendingTransaction}>
                 <img className='button__logo' src={Ethereum} alt='ethereum logo' />
                 {!isPendingTransaction && !isOngoingTransaction ? 'Send Ether' : ''}
-                {isOngoingTransaction && !isPendingTransaction ? 'Transaction is in process' : ''}
+                {isOngoingTransaction && !isPendingTransaction ? 'Transaction is in progress' : ''}
                 {isPendingTransaction ? 'Transaction has been confirmed, please wait while it is being completed' : ''}
             </button>
             <Modal show={isOpen}

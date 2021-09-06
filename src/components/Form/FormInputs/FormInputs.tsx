@@ -34,10 +34,22 @@ const FormInputs: React.FC<IFormInputsProps> = ({isPendingTransaction}) => {
     return (
         <div className="form__content">
             <div className="form__content--input">
-                <Input name='amount' placeholder='Amount' value={amount} action={handleAmountInput} isPendingTransaction={isPendingTransaction}/>
-                <Input name="receiversAddress" placeholder="Receivers Address" value={receiversAddress} action={handleAddressInput} isPendingTransaction={isPendingTransaction} />
+                <Input name='amount'
+                       placeholder='Amount'
+                       value={amount}
+                       action={handleAmountInput}
+                       isPendingTransaction={isPendingTransaction}/>
+                <Input name="receiversAddress"
+                       placeholder="Receivers Address"
+                       value={receiversAddress}
+                       action={handleAddressInput}
+                       isPendingTransaction={isPendingTransaction} />
                 {currency === 'ERC20' ?
-                    <Input name="tokenAddress" placeholder="Token Address" value={tokenAddress} action={handleTokenAddressInput} isPendingTransaction={isPendingTransaction}/>
+                    <Input name="tokenAddress"
+                           placeholder="Token Address"
+                           value={tokenAddress}
+                           action={handleTokenAddressInput}
+                           isPendingTransaction={isPendingTransaction}/>
                     :
                     null
                 }

@@ -26,7 +26,7 @@ const Modal: React.FC<IModalProps> = ({ show, title, close, setIsPendingTransact
             {
                 show ?
                     <div className="container">
-                        <div className="modal" >
+                        <div className="modal">
                             <header className="modal__header">
                                 <div className="modal__header__title">
                                     <img className="modal__header__logo" src={Ethereum} alt='ethereum logo'/>
@@ -44,6 +44,6 @@ const Modal: React.FC<IModalProps> = ({ show, title, close, setIsPendingTransact
         </>
     ,
         modalRoot);
-}
+};
 
 export default Modal;
