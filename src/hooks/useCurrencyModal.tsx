@@ -1,7 +1,6 @@
 import {Reducer, useReducer, useCallback, useState} from "react";
-import {FormState} from "../assets/types/formState";
+import {FormStateType} from "../assets/types/formStateType";
 import {FormActions} from "../assets/types/formActions";
-import useUpdateLogger from "./useUpdateLogger";
 
 const ACTIONS = {
     AMOUNT_UPDATE: 'amount-update',
@@ -13,7 +12,7 @@ const ACTIONS = {
     RESET_FORM: 'reset-form',
 }
 
-export const initialState: FormState = {
+export const initialState: FormStateType = {
     amount: '',
     currency: '',
     receiversAddress: '',
@@ -21,7 +20,7 @@ export const initialState: FormState = {
     tokenAddress: ''
 }
 
-export const reducer: Reducer<FormState, FormActions> = (state, action) => {
+export const reducer: Reducer<FormStateType, FormActions> = (state, action) => {
     const { type, payload = '' } = action;
     switch (type) {
         case ACTIONS.AMOUNT_UPDATE:

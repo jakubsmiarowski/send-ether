@@ -36,6 +36,6 @@ const Button: React.FC = () => {
             </Modal>
         </div>
     )
-};
+}
 
 export default Button;

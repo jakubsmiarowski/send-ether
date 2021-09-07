@@ -23,8 +23,7 @@ const FormInputs: React.FC = () => {
         dropdownOptions: {
             currencies,
             transactionSpeed
-        },
-        pendingTransaction: { isPendingTransaction }
+        }
     } = useContext(AppContext)
 
     return (
@@ -33,26 +32,27 @@ const FormInputs: React.FC = () => {
                 <Input name='amount'
                        placeholder='Amount'
                        value={amount}
-                       action={handleAmountInput}
-                       isPendingTransaction={isPendingTransaction}/>
+                       action={handleAmountInput}/>
                 <Input name="receiversAddress"
                        placeholder="Receivers Address"
                        value={receiversAddress}
-                       action={handleAddressInput}
-                       isPendingTransaction={isPendingTransaction} />
+                       action={handleAddressInput} />
                 {currency === 'ERC20' ?
                     <Input name="tokenAddress"
                            placeholder="Token Address"
                            value={tokenAddress}
-                           action={handleTokenAddressInput}
-                           isPendingTransaction={isPendingTransaction}/>
+                           action={handleTokenAddressInput}/>
                     :
                     null
                 }
             </div>
             <div className="form__content--dropdown">
-                <Dropdown items={currencies} callback={handleCurrency} title='Currency' isPendingTransaction={isPendingTransaction}/>
-                <Dropdown items={transactionSpeed} callback={handleSpeed} title="Speed" isPendingTransaction={isPendingTransaction}/>
+                <Dropdown items={currencies}
+                          callback={handleCurrency}
+                          title='Currency'/>
+                <Dropdown items={transactionSpeed}
+                          callback={handleSpeed}
+                          title="Speed" />
             </div>
         </div>
     )

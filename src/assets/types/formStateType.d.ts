@@ -1,4 +1,4 @@
-export interface FormState {
+export interface FormStateType {
     amount: string;
     currency: string;
     receiversAddress: string;

@@ -1,16 +1,17 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import './Dropdown.scss';
+import {AppContext} from "../../AppContext";
 
 interface IDropdownProps {
     title: string;
     items: string[];
-    isPendingTransaction: boolean;
     callback: (childData: string) => void;
 }
 
-const Dropdown: React.FC<IDropdownProps> = ({title, callback, items, isPendingTransaction}) => {
+const Dropdown: React.FC<IDropdownProps> = ({title, callback, items}) => {
     const [open, setOpen] = useState<boolean>(false);
     const [selected, setSelected] = useState<string>('');
+    const { pendingTransaction: { isPendingTransaction }} = useContext(AppContext);
     const toggle = () => {
         if (!isPendingTransaction) {
             setOpen(!open)

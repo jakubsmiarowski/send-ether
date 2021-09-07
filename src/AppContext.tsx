@@ -1,6 +1,6 @@
 import React from "react";
 import useCurrencyModal, {initialState} from "./hooks/useCurrencyModal";
-import {FormState} from "./assets/types/formState";
+import {FormStateType} from "./assets/types/formStateType";
 import {FormContextActions} from "./assets/types/formContextActions";
 import {DropdownContextType} from "./assets/types/currencyContextType";
 import {OngoingTransactionType} from "./assets/types/ongoingTransactionType";
@@ -12,7 +12,7 @@ const dropdownOptions: DropdownContextType = {
 }
 
 export const AppContext = React.createContext<{
-    state: FormState,
+    state: FormStateType,
     actions: FormContextActions,
     dropdownOptions: DropdownContextType,
     ongoingTransaction: OngoingTransactionType,

@@ -1,7 +1,6 @@
-import React, {Dispatch, SetStateAction, useContext} from "react";
+import React, {useContext} from "react";
 import './FormFooter.scss';
 import useEthers from "../../../hooks/useEthers";
-import {PacmanLoader} from "react-spinners";
 import {AppContext} from "../../../AppContext";
 
 interface IFormFooter {
