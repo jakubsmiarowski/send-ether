@@ -7,7 +7,7 @@ function App() {
   return (
       <AppProvider>
           <div className="App">
-              <Button clientId='Provider you user id here as a string'
+              <Button clientId='Provide you user id here as a string'
                       clientSecret='Provide your widgetToken here' />
           </div>
       </AppProvider>
