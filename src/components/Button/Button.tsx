@@ -2,14 +2,14 @@ import React, {useCallback, useContext, useState} from "react";
 import Modal from "../Modal/Modal";
 import Form from "../Form/Form";
 import useEthers from "../../hooks/useEthers";
-import Ethereum from '../../assets/img/ethereum-brands.svg'
-import './Button.scss';
 import {AppContext} from "../../AppContext";
 import userApiController from "../../controllers/UserApiController";
 import {PacmanLoader} from "react-spinners";
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
+import Ethereum from '../../assets/img/ethereum-brands.svg'
+import 'react-toastify/dist/ReactToastify.css';
+import './Button.scss';
 
 interface IButtonProps {
     clientId: string,
@@ -33,14 +33,24 @@ const Button: React.FC<IButtonProps> = ({ clientId, clientSecret}) => {
     } = useContext(AppContext)
     const toggleModal = () => setIsOpen(!isOpen);
 
+    const checkPaymentGateStatus = async () => {
+        const result = await userApiController.checkPaymentGateStatus(clientSecret);
+        return result.substring(1, result.length-1);
+    }
+
     const handleOpenModal = useCallback(async () => {
         setIsOngoingTransaction(true);
         setIsPacman(true);
         try {
-            const result = await userApiController.checkPaymentGateStatus(clientSecret);
-            const paymentGateStatus = result.substring(1, result.length-1);
+            const paymentGateStatus = await checkPaymentGateStatus();
             if (paymentGateStatus === "DISABLED") {
                 toast.error("Your Payment Gate is Disabled. You can activate it in admin.");
+                setTimeout(() => {
+                    setIsPacman(false)
+                    setIsOngoingTransaction(false)
+                }, 5500)
+            } else if (paymentGateStatus === 'Can\'t find paymentGate with that id'){
+                toast.error("There is no such Payment Gate. Can't make transactions without Payment Gate!");
                 setTimeout(() => {
                     setIsPacman(false)
                     setIsOngoingTransaction(false)
@@ -55,7 +65,7 @@ const Button: React.FC<IButtonProps> = ({ clientId, clientSecret}) => {
         catch (error) {
             throw new Error(error)
         }
-    }, [])
+    }, [checkPaymentGateStatus])
 
     return (
         <div className='wrapper'>
