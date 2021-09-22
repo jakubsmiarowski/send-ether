@@ -7,7 +7,8 @@ function App() {
   return (
       <AppProvider>
           <div className="App">
-              <Button />
+              <Button clientId='1'
+                      clientSecret='eyJhbGciOiJIUzI1NiJ9.NDg4Njg1NjY.J_HsnVAv-N061RI6qnX3JgSoVlOsRsChrc7xDFVnEWQ' />
           </div>
       </AppProvider>
   );

@@ -1,17 +1,22 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import './Dropdown.scss';
 import {AppContext} from "../../AppContext";
 
 interface IDropdownProps {
-    title: string;
+    defaultValue: string;
     items: string[];
     callback: (childData: string) => void;
 }
 
-const Dropdown: React.FC<IDropdownProps> = ({title, callback, items}) => {
+const Dropdown: React.FC<IDropdownProps> = ({callback, items, defaultValue}) => {
     const [open, setOpen] = useState<boolean>(false);
     const [selected, setSelected] = useState<string>('');
     const { pendingTransaction: { isPendingTransaction }} = useContext(AppContext);
+
+    useEffect(() => {
+        callback(defaultValue)
+    },[])
+
     const toggle = () => {
         if (!isPendingTransaction) {
             setOpen(!open)
@@ -35,7 +40,7 @@ const Dropdown: React.FC<IDropdownProps> = ({title, callback, items}) => {
                 onClick={() => toggle()}
             >
                 <div className="dd-header__title">
-                    <p className="dd-header__title--bold">{selected ? selected : title}</p>
+                    <p className="dd-header__title--bold">{selected ? selected : defaultValue}</p>
                 </div>
             </div>
             {open && (

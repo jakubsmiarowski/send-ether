@@ -11,14 +11,16 @@ const FormInputs: React.FC = () => {
             amount,
             currency,
             receiversAddress,
-            tokenAddress
+            tokenAddress,
+            product
         },
         actions: {
             handleAmountInput,
             handleAddressInput,
             handleTokenAddressInput,
             handleCurrency,
-            handleSpeed
+            handleSpeed,
+            handleProductInput
         },
         dropdownOptions: {
             currencies,
@@ -37,6 +39,10 @@ const FormInputs: React.FC = () => {
                        placeholder="Receivers Address"
                        value={receiversAddress}
                        action={handleAddressInput} />
+                <Input name="product"
+                       placeholder="Product"
+                       value={product}
+                       action={handleProductInput} />
                 {currency === 'ERC20' ?
                     <Input name="tokenAddress"
                            placeholder="Token Address"
@@ -49,10 +55,10 @@ const FormInputs: React.FC = () => {
             <div className="form__content--dropdown">
                 <Dropdown items={currencies}
                           callback={handleCurrency}
-                          title='Currency'/>
+                          defaultValue='Ether'/>
                 <Dropdown items={transactionSpeed}
                           callback={handleSpeed}
-                          title="Speed" />
+                          defaultValue='High'/>
             </div>
         </div>
     )

@@ -5,6 +5,7 @@ import {FormActions} from "../assets/types/formActions";
 const ACTIONS = {
     AMOUNT_UPDATE: 'amount-update',
     CURRENCY_UPDATE: 'currency-update',
+    PRODUCT_UPDATE: 'product-update',
     ADDRESS_UPDATE: 'address-update',
     TOKEN_ADDRESS_UPDATE: 'token_address-update',
     SPEED_UPDATE: 'speed-update',
@@ -14,10 +15,11 @@ const ACTIONS = {
 
 export const initialState: FormStateType = {
     amount: '',
-    currency: '',
+    currency: 'Ether',
     receiversAddress: '',
     transactionSpeed: '',
-    tokenAddress: ''
+    tokenAddress: '',
+    product: ''
 }
 
 export const reducer: Reducer<FormStateType, FormActions> = (state, action) => {
@@ -32,6 +34,11 @@ export const reducer: Reducer<FormStateType, FormActions> = (state, action) => {
             return {
                 ...state,
                 currency: payload
+            };
+        case ACTIONS.PRODUCT_UPDATE:
+            return {
+                ...state,
+                product: payload
             };
         case ACTIONS.ADDRESS_UPDATE:
             return {
@@ -67,6 +74,10 @@ function useCurrencyModal() {
         dispatch({ type: ACTIONS.SUBMIT_FORM });
     },[])
 
+    const handleReset = useCallback(() => {
+        dispatch({ type: ACTIONS.RESET_FORM })
+    },[])
+
     const handleAmountInput = useCallback((e) => {
         dispatch({ type: ACTIONS.AMOUNT_UPDATE, payload: e.target.value });
     },[])
@@ -75,6 +86,9 @@ function useCurrencyModal() {
         dispatch({ type: ACTIONS.ADDRESS_UPDATE, payload: e.target.value });
     }, [])
 
+    const handleProductInput = useCallback((e) => {
+        dispatch({ type: ACTIONS.PRODUCT_UPDATE, payload: e.target.value });
+    },[])
     const handleTokenAddressInput = useCallback((e) => {
         dispatch({ type: ACTIONS.TOKEN_ADDRESS_UPDATE, payload: e.target.value });
     }, [])
@@ -95,7 +109,9 @@ function useCurrencyModal() {
             handleAddressInput,
             handleTokenAddressInput,
             handleCurrency,
-            handleSpeed
+            handleSpeed,
+            handleProductInput,
+            handleReset
         },
         ongoingTransaction: {
             isOngoingTransaction,

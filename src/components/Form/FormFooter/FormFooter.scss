@@ -26,4 +26,14 @@
       background-color: #8C8C8C;
     }
   }
+  .submit-disabled {
+    background-color: #ee5253;
+    font-weight: 600;
+    color: #fff;
+    border-radius: 4px;
+    border: none;
+    &:hover {
+      background-color: #ff6b6b;
+    }
+  }
 }

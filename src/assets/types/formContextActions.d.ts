@@ -5,4 +5,6 @@ export interface FormContextActions {
     handleTokenAddressInput: (e: any) => void;
     handleCurrency: (e: any) => void;
     handleSpeed: (e: any) => void;
+    handleProductInput: (e: any) => void;
+    handleReset: () => void;
 }

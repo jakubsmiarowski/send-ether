@@ -17,7 +17,8 @@ const Input:React.FC<IInputProps> = ({ name, placeholder, value, action}) => {
                placeholder={placeholder}
                value={value}
                onChange={action}
-               disabled={isPendingTransaction}/>
+               disabled={isPendingTransaction}
+               required/>
     )
 }
 export default Input;

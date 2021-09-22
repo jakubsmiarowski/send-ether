@@ -11,7 +11,7 @@ class Web3Controller {
     convertToWei(amount: string): string {
         return this.web3.utils.toWei(amount, 'ether');
     }
-    convertFromWei(amount: string): string {
+    convertFromWei(amount: string) {
         return this.web3.utils.fromWei(amount, 'ether');
     }
 
@@ -39,14 +39,13 @@ class Web3Controller {
     }
 
     async sendCoins(transactionObject: Object) {
-        await this.web3.eth.sendTransaction(transactionObject, (err: Error, result:any) => {
-            if (err) {
-                console.error(err.message);
-            } else {
-                console.log(result);
-            }
-        })
-            .then((receipt) => console.log(receipt));
+
+        try {
+            return await this.web3.eth.sendTransaction(transactionObject)
+        }
+        catch (err) {
+            throw new Error(err)
+        }
     }
 }
 

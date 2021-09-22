@@ -5,12 +5,17 @@ import {AppContext} from "../../../AppContext";
 
 interface IFormFooter {
     close: () => void;
+    clientSecret: string;
 }
 
-const FormFooter: React.FC<IFormFooter> = ({ close }) => {
+const FormFooter: React.FC<IFormFooter> = ({ close, clientSecret }) => {
 
     const { sendCoins } = useEthers();
-    const { ongoingTransaction: {setIsOngoingTransaction}, pendingTransaction: {setIsPendingTransaction} } = useContext(AppContext);
+    const {
+        state: { amount, product, receiversAddress, transactionSpeed },
+        ongoingTransaction: {setIsOngoingTransaction},
+        pendingTransaction: {isPendingTransaction, setIsPendingTransaction}
+    } = useContext(AppContext);
 
     const handlePropsActions = () => {
         close();
@@ -20,7 +25,7 @@ const FormFooter: React.FC<IFormFooter> = ({ close }) => {
 
     async function transaction(e: any) {
         setIsPendingTransaction(true);
-        await sendCoins(e).then(() => handlePropsActions())
+        await sendCoins(e, clientSecret).then(() => handlePropsActions())
     }
 
     return (
@@ -28,7 +33,11 @@ const FormFooter: React.FC<IFormFooter> = ({ close }) => {
             <button className="form-close" onClick={() => handlePropsActions()}>
                 Cancel
             </button>
-            <button className="submit" onClick={transaction}>Submit</button>
+            <button className={product === '' || receiversAddress === '' || amount === '' || transactionSpeed === '' || isPendingTransaction ? 'submit-disabled' : 'submit'}
+                    onClick={transaction}
+                    disabled={product === '' || receiversAddress === '' || amount === '' || transactionSpeed === '' || isPendingTransaction}>
+                Submit
+            </button>
         </footer>
     )
 }

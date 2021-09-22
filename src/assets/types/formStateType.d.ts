@@ -4,4 +4,5 @@ export interface FormStateType {
     receiversAddress: string;
     transactionSpeed: string;
     tokenAddress?: string;
+    product: string
 }
