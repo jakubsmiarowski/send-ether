@@ -44,10 +44,11 @@ const FormInputs: React.FC = () => {
                        value={product}
                        action={handleProductInput} />
                 {currency === 'ERC20' ?
-                    <Input name="tokenAddress"
-                           placeholder="Token Address"
-                           value={tokenAddress}
-                           action={handleTokenAddressInput}/>
+                    // <Input name="tokenAddress"
+                    //        placeholder="Token Address"
+                    //        value={tokenAddress}
+                    //        action={handleTokenAddressInput}/>
+                    <div className="feature">This feature is not ready yet, keep an eye out!</div>
                     :
                     null
                 }
