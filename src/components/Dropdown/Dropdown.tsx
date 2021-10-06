@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
-import './Dropdown.scss';
 import {AppContext} from "../../AppContext";
+import './Dropdown.scss';
 
 interface IDropdownProps {
     defaultValue: string;
@@ -9,23 +9,23 @@ interface IDropdownProps {
 }
 
 const Dropdown: React.FC<IDropdownProps> = ({callback, items, defaultValue}) => {
-    const [open, setOpen] = useState<boolean>(false);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
     const [selected, setSelected] = useState<string>('');
-    const { pendingTransaction: { isPendingTransaction }} = useContext(AppContext);
+    const {pendingTransaction: {isPendingTransaction}} = useContext(AppContext);
 
     useEffect(() => {
-        callback(defaultValue)
-    },[])
+        callback(defaultValue);
+    }, [])
 
     const toggle = () => {
         if (!isPendingTransaction) {
-            setOpen(!open)
+            setIsOpen(prevIsOpen => !prevIsOpen);
         }
     };
 
     function handleOnClick(item: string) {
         setSelected(item);
-        setOpen(false);
+        setIsOpen(false);
         callback(item);
     }
 
@@ -34,7 +34,7 @@ const Dropdown: React.FC<IDropdownProps> = ({callback, items, defaultValue}) => 
             <div
                 tabIndex={0}
                 className="dd-header"
-                style={{ color: isPendingTransaction ? '#8C8C8C' : 'black'}}
+                style={{color: isPendingTransaction ? '#8C8C8C' : 'black'}}
                 role="button"
                 onKeyPress={() => toggle()}
                 onClick={() => toggle()}
@@ -43,7 +43,7 @@ const Dropdown: React.FC<IDropdownProps> = ({callback, items, defaultValue}) => 
                     <p className="dd-header__title--bold">{selected ? selected : defaultValue}</p>
                 </div>
             </div>
-            {open && (
+            {isOpen && (
                 <ul className="dd-list">
                     {items.map(item => (
                         <li className="dd-list-item" key={item}>

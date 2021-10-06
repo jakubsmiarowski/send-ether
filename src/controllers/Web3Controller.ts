@@ -1,4 +1,5 @@
 import Web3 from 'web3';
+import {TransactionObject} from "../assets/types/transactionObject";
 
 declare const window: any;
 
@@ -6,11 +7,6 @@ class Web3Controller {
     web3 = new Web3(Web3.givenProvider);
     accounts: string[] = [];
     gasPrice: string = '';
-    balance: number = 0;
-
-    convertToWei(amount: string): string {
-        return this.web3.utils.toWei(amount, 'ether');
-    }
     convertFromWei(amount: string) {
         return this.web3.utils.fromWei(amount, 'ether');
     }
@@ -20,30 +16,25 @@ class Web3Controller {
     }
 
     async getAccount() {
-        const [account] = await window.ethereum.request({ method: 'eth_requestAccounts' })
+        const [account] = await window.ethereum.request({method: 'eth_requestAccounts'})
         console.log("Account: ", account.toString());
     }
 
     async getBalance() {
-        await this.web3.eth.getAccounts()
-            .then(accounts => this.accounts = accounts);
-        await this.web3.eth.getBalance(this.accounts[0], (err: Error, balance: string) => {
-            if (err) {
-                console.error(err.message);
-            } else {
-                console.log('Balance: ', balance);
-            }
-            console.log(balance);
-        })
-            .then((balance: string)=> console.log('Balance: ', balance));
+        try {
+            const accounts = await this.web3.eth.getAccounts();
+            this.accounts = accounts;
+            const balance = await this.web3.eth.getBalance(accounts[0]);
+            return balance.toString();
+        } catch (err) {
+            throw new Error(err)
+        }
     }
 
-    async sendCoins(transactionObject: Object) {
-
+    async sendCoins(transactionObject: TransactionObject) {
         try {
             return await this.web3.eth.sendTransaction(transactionObject)
-        }
-        catch (err) {
+        } catch (err) {
             throw new Error(err)
         }
     }
@@ -51,26 +42,3 @@ class Web3Controller {
 
 const web3Service = new Web3Controller();
 export default web3Service;
-
-// static buyEventToken = (eventContract, userAddress, preciseAmount) => {
-//     if (!eventContract) {
-//       throw new Error('Event contract not initiated')
-//     }
-//     const value = toU256(preciseAmount)
-
-//     return new Promise((resolve, reject) => {
-//       eventContract.methods.buy()
-//         .send({ from: userAddress, value })
-//         .once('transactionHash', (txHash) => {
-//           resolve({
-//             success: true,
-//             from: userAddress,
-//             value,
-//             txHash,
-//           })
-//         })
-//         .catch((err) => {
-//           reject(err)
-//         });
-//     })
-//   }

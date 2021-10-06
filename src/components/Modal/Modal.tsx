@@ -1,9 +1,9 @@
 import React, {useContext} from "react";
 import ReactDOM from "react-dom";
-import './Modal.scss';
-import Ethereum from '../../assets/img/ethereum-brands.svg'
 import {PacmanLoader} from "react-spinners";
 import {AppContext} from "../../AppContext";
+import Ethereum from '../../assets/img/ethereum-brands.svg'
+import './Modal.scss';
 
 interface IModalProps {
     show: boolean;
@@ -13,7 +13,7 @@ interface IModalProps {
 
 const modalRoot = document.getElementById("modal") as HTMLElement;
 
-const Modal: React.FC<IModalProps> = ({ show, title, close, children }) => {
+const Modal: React.FC<IModalProps> = ({show, title, close, children}) => {
 
     const {
         ongoingTransaction: {
@@ -23,7 +23,7 @@ const Modal: React.FC<IModalProps> = ({ show, title, close, children }) => {
             isPendingTransaction,
             setIsPendingTransaction
         }
-    } = useContext(AppContext)
+    } = useContext(AppContext);
 
     const handlePropsActions = () => {
         close();
@@ -56,13 +56,12 @@ const Modal: React.FC<IModalProps> = ({ show, title, close, children }) => {
                             }
                         </div>
                     </div>
-                    : <div />
+                    : <div/>
             }
         </>
-    ,
+        ,
         modalRoot);
 }
 
 export default Modal;
 
-// style={{backgroundColor: isPendingTransaction ? '' : ''}

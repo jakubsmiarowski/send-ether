@@ -8,17 +8,19 @@ interface IInputProps {
     action: (e: any) => void;
 }
 
-const Input:React.FC<IInputProps> = ({ name, placeholder, value, action}) => {
+const Input: React.FC<IInputProps> = ({name, placeholder, value, action}) => {
 
-    const { pendingTransaction: { isPendingTransaction }} = useContext(AppContext);
+    const {pendingTransaction: {isPendingTransaction}} = useContext(AppContext);
 
     return (
-        <input name={name}
-               placeholder={placeholder}
-               value={value}
-               onChange={action}
-               disabled={isPendingTransaction}
-               required/>
+        <input
+            name={name}
+            placeholder={placeholder}
+            value={value}
+            onChange={action}
+            disabled={isPendingTransaction}
+            required
+        />
     )
 }
 export default Input;

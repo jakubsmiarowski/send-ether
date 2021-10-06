@@ -23,7 +23,7 @@ export const initialState: FormStateType = {
 }
 
 export const reducer: Reducer<FormStateType, FormActions> = (state, action) => {
-    const { type, payload = '' } = action;
+    const {type, payload = ''} = action;
     switch (type) {
         case ACTIONS.AMOUNT_UPDATE:
             return {
@@ -56,7 +56,7 @@ export const reducer: Reducer<FormStateType, FormActions> = (state, action) => {
                 transactionSpeed: payload
             }
         case ACTIONS.SUBMIT_FORM:
-            return { ...state }
+            return {...state}
         case ACTIONS.RESET_FORM:
             return state = initialState
         default:
@@ -71,39 +71,39 @@ function useCurrencyModal() {
 
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
-        dispatch({ type: ACTIONS.SUBMIT_FORM });
-    },[])
+        dispatch({type: ACTIONS.SUBMIT_FORM});
+    }, [])
 
     const handleReset = useCallback(() => {
-        dispatch({ type: ACTIONS.RESET_FORM })
-    },[])
+        dispatch({type: ACTIONS.RESET_FORM})
+    }, [])
 
     const handleAmountInput = useCallback((e) => {
-        dispatch({ type: ACTIONS.AMOUNT_UPDATE, payload: e.target.value });
-    },[])
+        dispatch({type: ACTIONS.AMOUNT_UPDATE, payload: e.target.value});
+    }, [])
 
     const handleAddressInput = useCallback((e) => {
-        dispatch({ type: ACTIONS.ADDRESS_UPDATE, payload: e.target.value });
+        dispatch({type: ACTIONS.ADDRESS_UPDATE, payload: e.target.value});
     }, [])
 
     const handleProductInput = useCallback((e) => {
-        dispatch({ type: ACTIONS.PRODUCT_UPDATE, payload: e.target.value });
-    },[])
+        dispatch({type: ACTIONS.PRODUCT_UPDATE, payload: e.target.value});
+    }, [])
     const handleTokenAddressInput = useCallback((e) => {
-        dispatch({ type: ACTIONS.TOKEN_ADDRESS_UPDATE, payload: e.target.value });
+        dispatch({type: ACTIONS.TOKEN_ADDRESS_UPDATE, payload: e.target.value});
     }, [])
 
     const handleCurrency = useCallback((e) => {
-        dispatch({ type: ACTIONS.CURRENCY_UPDATE, payload: e});
-    },[])
+        dispatch({type: ACTIONS.CURRENCY_UPDATE, payload: e});
+    }, [])
 
     const handleSpeed = useCallback((e) => {
-        dispatch({ type: ACTIONS.SPEED_UPDATE, payload: e});
-    },[])
+        dispatch({type: ACTIONS.SPEED_UPDATE, payload: e});
+    }, [])
 
     return {
         state: formFields,
-        actions:{
+        actions: {
             handleSubmit,
             handleAmountInput,
             handleAddressInput,

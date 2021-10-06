@@ -5,14 +5,14 @@ import {AppContext} from "../../../AppContext";
 
 interface IFormFooter {
     close: () => void;
-    clientSecret: string;
+    clientSecret: string | undefined;
 }
 
-const FormFooter: React.FC<IFormFooter> = ({ close, clientSecret }) => {
+const FormFooter: React.FC<IFormFooter> = ({close, clientSecret}) => {
 
-    const { sendCoins } = useEthers();
+    const {sendCoins} = useEthers();
     const {
-        state: { amount, product, receiversAddress, transactionSpeed },
+        state: {amount, product, receiversAddress, transactionSpeed},
         ongoingTransaction: {setIsOngoingTransaction},
         pendingTransaction: {isPendingTransaction, setIsPendingTransaction}
     } = useContext(AppContext);
@@ -24,8 +24,10 @@ const FormFooter: React.FC<IFormFooter> = ({ close, clientSecret }) => {
     }
 
     async function transaction(e: any) {
-        setIsPendingTransaction(true);
-        await sendCoins(e, clientSecret).then(() => handlePropsActions())
+        if (clientSecret !== undefined) {
+            setIsPendingTransaction(true);
+            await sendCoins(e, clientSecret).then(() => handlePropsActions());
+        }
     }
 
     return (
@@ -33,9 +35,10 @@ const FormFooter: React.FC<IFormFooter> = ({ close, clientSecret }) => {
             <button className="form-close" onClick={() => handlePropsActions()}>
                 Cancel
             </button>
-            <button className={product === '' || receiversAddress === '' || amount === '' || transactionSpeed === '' || isPendingTransaction ? 'submit-disabled' : 'submit'}
-                    onClick={transaction}
-                    disabled={product === '' || receiversAddress === '' || amount === '' || transactionSpeed === '' || isPendingTransaction}>
+            <button
+                className={product === '' || receiversAddress === '' || amount === '' || transactionSpeed === '' || isPendingTransaction ? 'submit-disabled' : 'submit'}
+                onClick={transaction}
+                disabled={product === '' || receiversAddress === '' || amount === '' || transactionSpeed === '' || isPendingTransaction}>
                 Submit
             </button>
         </footer>

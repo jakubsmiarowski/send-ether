@@ -1,24 +1,17 @@
-import Token from '../artifacts/contracts/Token.sol/Token.json';
 import {useContext} from "react";
+import web3 from 'web3';
+import {toast} from "react-toastify";
+
 import {AppContext} from "../AppContext";
 import web3Service from "../controllers/Web3Controller";
-import userApiController from "../controllers/UserApiController";
+import userApiController from "../controllers/AdminApiController";
 import {AdminTransactionObject} from "../assets/types/adminTransactionObject";
-import {toast} from "react-toastify";
-import web3 from 'web3';
-
-interface TransactionObject {
-    from: string;
-    to: string;
-    value: string;
-    gasPrice: number;
-}
+import {TransactionObject} from "../assets/types/transactionObject";
 
 function useEthers() {
 
     const {
         state: {
-            currency,
             product,
             amount,
             receiversAddress,
@@ -39,8 +32,7 @@ function useEthers() {
         try {
             await web3Service.getAccount();
             await userApiController.checkPaymentGateStatus(widgetToken);
-        }
-        catch (e){
+        } catch (e) {
             throw new Error(e);
         }
         setIsOngoingTransaction(true);
@@ -51,30 +43,30 @@ function useEthers() {
         setIsPendingTransaction(true);
     }
 
-     async function addTransactionToAdmin(txReceipt: AdminTransactionObject, widgetToken: string) {
+    async function addTransactionToAdmin(txReceipt: AdminTransactionObject, widgetToken: string) {
         let status = '';
         if (txReceipt.to === txReceipt.from) {
             status = 'SELF';
         } else {
             status = 'OUT'
         }
-         const adminTxObject: AdminTransactionObject = {
-             to: txReceipt.to,
-             from: txReceipt.from,
-             status: status,
-             product: product,
-             widgetToken: widgetToken,
-             gasUsed: txReceipt.gasUsed,
-             value: amount
-         }
-         const result = await userApiController.registerTransactionInAdmin(adminTxObject);
-         toast.success(`Transaction completed! You just bought ${product}`);
-         handleReset();
-         setIsPendingTransaction(false);
-         return result
+        const adminTxObject: AdminTransactionObject = {
+            to: txReceipt.to,
+            from: txReceipt.from,
+            status: status,
+            product: product,
+            widgetToken: widgetToken,
+            gasUsed: txReceipt.gasUsed,
+            value: amount
+        }
+        const result = await userApiController.registerTransactionInAdmin(adminTxObject);
+        toast.success(`Transaction completed! You just bought ${product}`);
+        handleReset();
+        setIsPendingTransaction(false);
+        return result
     }
 
-    async function sendCoins(event:any, widgetToken: string) {
+    async function sendCoins(event: any, widgetToken: string) {
         event.preventDefault();
         try {
             await getBalance();
@@ -98,21 +90,9 @@ function useEthers() {
             };
             const txReceipt: any = await web3Service.sendCoins(transactionObject);
             await addTransactionToAdmin(txReceipt, widgetToken);
-        }
-        catch (e) {
+        } catch (e) {
             throw new Error(e)
         }
-
-        // znalezc token erc20 matik(poligon) albo bnb(bsc)
-        // pobrac ich abi json
-        // poprzez ethers zobaczyc czy moge pobrac info przez zalaczenie abi
-
-        // ABI eth - https://ethereum.stackexchange.com/questions/32959/how-to-use-web3-to-send-money-from-wallet-a-to-wallet-b/32965
-        // const contract = new ethers.Contract(tokenAddress, Token.abi, signer);
-        // const transaction = await contract.transfer(receiversAddress, amount);
-        // await transaction.wait();
-        // await setIsOngoingTransaction(true);
-        // console.log(`${amount} Coins successfully sent to ${receiversAddress}`);
     }
 
     return {
