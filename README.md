@@ -25,14 +25,6 @@ You can skip this step if you already have a working Node.js 12.0 or greater ins
 
 If you don’t have Node.js installed, download and install the latest version of the JavaScript runtime environment [Node.js and package manager NPM](https://nodejs.org/en/download/). Accept all default answers for questions.
 
-#### Git
-
-Download and install the distributed revision control system [Git](https://git-scm.com/downloads). You will need this when installing packages. Accept all default values during installation. If you’re using macOS and you get prompted to install ‘command line developer tools’, accept and install them.
-
-To test git once it’s installed, open a new Terminal/Windows Command Prompt (or another CLI of your choice), and type the command below:
-
-      git --version
-
 #### Text Editor
 
 Go to [https://code.visualstudio.com/](https://code.visualstudio.com/), download and install the latest version of Visual Studio Code for your operating system.
@@ -55,7 +47,7 @@ Go to [https://code.visualstudio.com/](https://code.visualstudio.com/), download
 
 Take note, send-ether widget is a button that can be added to your website/internet shop but in order for it to work it needs active payment gate. We're going to do that in next steps.
 
-1. Go to [send-ether.space](https://send-ether.space). This is the admin website created for the purpose of tracking transactions made with send-ether widget.
+1. Go to [send-ether.space](https://send-ether.space). This is the admin website I created for the purpose of tracking transactions made with send-ether widget.
 2. Login with your GitHub account
 3. On Account page you will see some basic information from GitHub account, and a button to create a payment gate. To create it simply click it and when asked provide name for the gate.
 
@@ -65,10 +57,7 @@ Take note, send-ether widget is a button that can be added to your website/inter
 
    ![img_7.png](src/assets/img/img_7.png)
 
-5. In root directory, create file .env and fill it with your widget token and base url like so:
-
-   ![img_1.png](src/assets/img/img_1.png)
-
+5. In **.env** file paste your widget token. (Since this is presentational demo, I'm including .env in the repository)
 
 6. From now on the widget will be assigned to your Payment Gate. You can now use it to transfer test Ether.
 
@@ -87,11 +76,11 @@ For testing purposes you can use one of my addresses:
 
 **0x1D5630816c9c5C1547Cc5745E195E45525C58737**
 
-I created two accounts for myself and just send ether between them.
+I created two accounts for myself, and I send ether between them.
 
 ![img_2.png](src/assets/img/img_2-added.png)
 
-When all the information is provided, MetaMask will ask you about the transaction.
+When all the information is provided, MetaMask will ask you to confirm the transaction.
 
 ![img_10.png](src/assets/img/img_10.png)
 
