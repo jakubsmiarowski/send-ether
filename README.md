@@ -42,7 +42,7 @@ Go to [https://code.visualstudio.com/](https://code.visualstudio.com/), download
 
 1. Open MetaMask, move the cursor over your account name, and click on it to copy the wallet address to the clipboard
 
-   ![img_1.png](src/assets/img/img_1.png)
+   ![img.png](src/assets/img/metamask.png)
 
 
 2. Head to [https://linkfaucet.protofire.io/kovan](https://linkfaucet.protofire.io/kovan), paste in your wallet address and press the ‘Send me 0.1 Test ETH button. The faucet will send you some Kovan Testnet ETH, which should show up in your MetaMask wallet a few seconds after in the Assets section.
@@ -67,7 +67,7 @@ Take note, send-ether widget is a button that can be added to your website/inter
 
 5. In root directory, create file .env and fill it with your widget token and base url like so:
 
-   ![img_1.png](img_1.png)
+   ![img_1.png](src/assets/img/img_1.png)
 
 
 6. From now on the widget will be assigned to your Payment Gate. You can now use it to transfer test Ether.
