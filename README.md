@@ -4,6 +4,8 @@ send-ether widget is a button which can be used as a payment gate for your onlin
 
 This is a test environment for developers, in the future it will be full-fledged npm dependency.
 
+For send-ether-admin code check out this link [send-ether-admin](https://github.com/jakubsmiarowski/send-ether-admin)
+
 ### Initial Setup
 However, to get started with send-ether widget, you must ensure that you have few things installed and configured.
 #### MetaMask
